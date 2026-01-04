@@ -6,9 +6,9 @@
 
 ### 🔥 Key Features
 
-*   **🤖 FinZ AI (The Real Wingman)**: Integrated with **Google Gemini** & **Groq (Llama 3)** to give you punchy, context-aware financial advice based on *your* actual spending habits.
+*   **🤖 FinFlex AI (The Real Wingman)**: Integrated with **Google Gemini** & **Groq (Llama 3)** to give you punchy, context-aware financial advice based on *your* actual spending habits.
 *   **🏆 Social Circles & Leaderboards**: Stop saving alone. Add friends via unique **Friend Codes** and compete on the weekly Savings Leaderboard. Who’s the ultimate "Wealth Wizard"? 👑
-*   **💳 Autopay Manager (Linked Integration)**: Managed subscriptions like Netflix or Spotify? FinZ automatically logs them into your transaction history with a distinct **Autopay Badge** so you never lose track of "hidden" expenses.
+*   **💳 Autopay Manager (Linked Integration)**: Managed subscriptions like Netflix or Spotify? FinFlex automatically logs them into your transaction history with a distinct **Autopay Badge** so you never lose track of "hidden" expenses.
 *   **🎯 Goal Crushing**: Set targets for that Goa trip or a new MacBook. FinZ tracks your progress and yells at you (nicely) when you spend too much on Zomato.
 *   **☁️ Cross-Device Sync**: Powered by a robust **Redis (Vercel KV)** backend. Your data stays with you, whether you're on your phone or laptop.
 
@@ -30,4 +30,4 @@
 
 ---
 
-> *"Wealth isn't about having a lot of money; it's about having a lot of options."* – FinZ AI 🤖✨
+> *"Wealth isn't about having a lot of money; it's about having a lot of options."* – FinFlex AI 🤖✨
