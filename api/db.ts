@@ -104,6 +104,22 @@ export class db {
         }
     }
 
+    // --- OTP Management ---
+
+    static async saveOTP(identifier: string, otp: string): Promise<void> {
+        // Store OTP with 5-minute expiry (300 seconds)
+        await redis.set(`otp:${identifier}`, otp, 'EX', 300);
+    }
+
+    static async verifyOTP(identifier: string, otp: string): Promise<boolean> {
+        const savedOTP = await redis.get(`otp:${identifier}`);
+        if (savedOTP && savedOTP === otp) {
+            await redis.del(`otp:${identifier}`); // Clear after use
+            return true;
+        }
+        return false;
+    }
+
     static async getLeaderboard(userIds: string[]): Promise<any[]> {
         const results = [];
         for (const id of userIds) {
