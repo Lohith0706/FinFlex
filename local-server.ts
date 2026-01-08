@@ -17,8 +17,10 @@ app.use(cors());
 app.use(express.json());
 
 // Helper to wrap Vercel handlers
-const wrap = (handler: any) => async (req: any, res: any) => {
+const wrap = (handlerPromise: Promise<any>) => async (req: any, res: any) => {
     try {
+        const module = await handlerPromise;
+        const handler = module.default;
         await handler(req, res);
     } catch (error) {
         console.error('Error in handler:', error);
@@ -26,18 +28,16 @@ const wrap = (handler: any) => async (req: any, res: any) => {
     }
 };
 
-// Routes
-// Consolidated Handlers
-// @ts-ignore
-import auth from './api/auth.ts';
-// @ts-ignore
-import data from './api/data.ts';
-// @ts-ignore
-import social from './api/social.ts';
-// @ts-ignore
-import ai from './api/ai.ts';
+// Lazy functions to import handlers only when needed
+const auth = import('./api/auth.ts');
+const data = import('./api/data.ts');
+const social = import('./api/social.ts');
+const ai = import('./api/ai.ts');
 
-app.all('/api/auth-*', wrap(auth));
+app.all('/api/auth-login', wrap(auth));
+app.all('/api/auth-signup', wrap(auth));
+app.all('/api/auth-verify-otp', wrap(auth));
+app.all('/api/auth-me', wrap(auth));
 app.all('/api/user-data', wrap(data));
 app.all('/api/update-user-data', wrap(data));
 app.all('/api/resolve-friend-code', wrap(social));
@@ -47,6 +47,9 @@ app.all('/api/finz-chat', wrap(ai));
 app.all('/api/finz-advice', wrap(ai));
 app.all('/api/finz', wrap(ai));
 
+
+
 app.listen(port, () => {
     console.log(`Local API server listening at http://localhost:${port}`);
 });
+

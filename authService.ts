@@ -30,6 +30,9 @@ export type AuthResponse = {
     token?: string;
     user?: AuthUser;
     error?: string;
+    otpRequired?: boolean;
+    email?: string;
+    message?: string;
 };
 
 export async function signup(data: any): Promise<AuthResponse> {
@@ -39,12 +42,7 @@ export async function signup(data: any): Promise<AuthResponse> {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data),
         });
-        const result = await res.json();
-
-        if (result.success && result.user) {
-            return result;
-        }
-        return result;
+        return await res.json();
     } catch (e) {
         return { success: false, error: 'Connection error' };
     }
@@ -57,17 +55,25 @@ export async function login(data: any): Promise<AuthResponse> {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data),
         });
-        const result = await res.json();
-
-        if (result.success && result.user) {
-            return result;
-        }
-
-        return result;
+        return await res.json();
     } catch (e) {
         return { success: false, error: 'Connection error' };
     }
 }
+
+export async function verifyOTP(data: { email: string; otp: string; isSignup?: boolean; signupData?: any }): Promise<AuthResponse> {
+    try {
+        const res = await fetch('/api/auth-verify-otp', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data),
+        });
+        return await res.json();
+    } catch (e) {
+        return { success: false, error: 'Connection error' };
+    }
+}
+
 
 export async function getCurrentUser(token: string): Promise<AuthResponse> {
     try {
